@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <barcode>
+            <general>
+                <label_height>29</label_height>
+                <label_width>62</label_width>
+                <row_labels>1</row_labels>
+                <page_rows>1</page_rows>
+                <label_content>{name height=8}
+                {barcode}
+                {price}
+                </label_content>
+                <paper_paddings>[0,0,0,0]</paper_paddings>
+                <label_paddings>[0,0,0,0]</label_paddings>
+                <barcode>TYPE_EAN_13</barcode>
+                <special_price>1</special_price>
+                <code>sku</code>
+                <custom_css></custom_css>
+            </general>
+        </barcode>
+    </default>
+</config>

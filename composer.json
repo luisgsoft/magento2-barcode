@@ -1,0 +1,26 @@
+{
+    "name": "gsoft/module-barcode",
+    "description": "",
+    "license": "OSL-3.0",
+	"version":"1.0.0.",
+    "authors": [
+        {
+            "name": "Gsoft",
+            "email": "luis@gsoft.es"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "picqer/php-barcode-generator": ">=2.0",
+        "dompdf/dompdf": ">=1.0.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Gsoft\\Barcode\\": ""
+        }
+
+    }
+}

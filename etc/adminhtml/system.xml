@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="gsoft" translate="label" sortOrder="999">
+			<label>gsoft</label>
+		</tab>
+		<section id="barcode" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>Barcode</label>
+			<tab>gsoft</tab>
+			<resource>Gsoft_Barcode::config_gsoft_barcode</resource>
+			<group id="general" sortOrder="10" showInDefault="1"  showInWebsite="1" translate="label">
+				<label>Configuration</label>
+				<field id="label_height" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label">
+					<label>Label Height</label>
+					<comment>mm</comment>
+				</field>
+				<field id="label_width" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>Label Width</label>
+					<comment>mm</comment>
+				</field>
+				<field id="row_labels" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>row_labels</label>
+					<comment>Labels per row</comment>
+				</field>
+				<field id="page_rows" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label">
+					<label>page_rows</label>
+					<comment>Rows per page</comment>
+				</field>
+				<field id="label_content" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>label_content</label>
+					<comment>Attribute height=x for set height of field in mm</comment>
+				</field>
+				<field id="custom_css" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label">
+					<label>Custom css</label>
+					<comment>.paper, .label, .name, .barcode, .prices,  .old_price .price, .final_price .price</comment>
+				</field>
+				<field id="code" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label">
+					<label>Attribute SKU</label>
+					<comment>Attribute code: sku, ean, part_number, i.e.</comment>
+				</field>
+				<field id="special_price" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+					  >
+					<label>Show special price</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Show special and old price</comment>
+				</field>
+				<field id="paper_paddings" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>paper_paddings</label>
+					<comment>Padding of paper, in json format</comment>
+				</field>
+				<field id="label_paddings" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>label_paddings</label>
+					<comment>Padding of label, in json format</comment>
+				</field>
+				<field id="barcode" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
+					<label>Barcode format</label>
+					<comment>https://github.com/picqer/php-barcode-generator/blob/main/examples.md</comment>
+					<source_model>Gsoft\Barcode\Model\Adminhtml\System\Config\Source\Barcode</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

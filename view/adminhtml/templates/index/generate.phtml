@@ -1,0 +1,44 @@
+<?php
+$collection = $this->getData("products");
+?>
+<form action="<?php echo $this->getUrl("barcode/index/printlabels");?>" method="post">
+    <input type="hidden" name="form_key" value="<?php echo $this->getFormKey() ?>" />
+    <input type='number' id='qty' value='1'  size="3"> <button type="button" id="change_Qty"><span><?php echo __("Update Qty");?></span></button> <button class="button primary" type="submit"><span><?php echo __("Print all");?></span></button>
+<ul class="barcodelist">
+    <?php
+
+    if(empty($collection)){
+        ?>
+        <li><div class="message"><?php echo __("No hay productos que sean imprimibles. Sólo se pueden generar etiquetas de productos simples y virtuales.");?></div></li>
+    <?php
+    }else {
+        foreach ($collection as $p) {
+            $product = $p['p'];
+            $qty = $p['qty'];
+            /**@var \Magento\Catalog\Api\Data\ProductInterface $product */
+
+
+            $product->getExtensionAttributes();
+            echo "<li>" . $product->getName() . "<span class='qty'><input type='number' class='qty' name='qty[" . $product->getId() . "]' value='" . intval($qty) . "'></span></li>";
+        }
+    }
+?>
+</ul>
+</form>
+
+<style>
+    .barcodelist li{max-width:600px; clear: both; list-style: none; border:solid 1px #efefef; padding: 10px 0}
+    .qty{float: right}
+</style>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        'use strict';
+        console.log("load");
+        $("#change_Qty").click(function(){
+
+            $(".qty").val($("#qty").val());
+        })
+    });
+</script>
