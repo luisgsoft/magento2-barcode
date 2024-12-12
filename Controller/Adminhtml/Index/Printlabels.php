@@ -147,7 +147,7 @@ class Printlabels extends \Magento\Backend\App\Action
                 $price .= "<span class='final_price'>" . $this->priceCurrency->convertAndFormat($finalPrice) . "</span>";
                 $price .= "</div>";
 
-                $barcode = "<div class='barcode'><img src='data:image/png;base64," . base64_encode($generator->getBarcode($p->getData($sku), constant(get_class($generator) . '::' . $type_barcode), 3, 50)) . "' width='90%' /></div>";
+                $barcode = "<div class='barcode'><img src='data:image/png;base64," . base64_encode($generator->getBarcode($p->getData($sku), constant(get_class($generator) . '::' . $type_barcode), 3, 50)) . "' width='100%' /></div>";
 
                 for ($i = 0; $i < $qty; $i++) {
                     if ($perpage > 0) {
@@ -156,7 +156,7 @@ class Printlabels extends \Magento\Backend\App\Action
                         }
                     }
                     $html .= '<div class="label">';
-                    $labelFormated = str_replace(["{name}", "{price}", "{barcode}"], [$name, $price, $barcode], $label);
+                    $labelFormated = str_replace(["{name}", "{price}", "{barcode}", "{sku}"], [$name, $price, $barcode, $p->getData($sku)], $label);
                     $html .= $labelFormated;
                     $html .= "</div>";
                     $current_label++;

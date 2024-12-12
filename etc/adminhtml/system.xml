@@ -28,7 +28,7 @@
 				</field>
 				<field id="label_content" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1"  translate="label">
 					<label>label_content</label>
-					<comment>Attribute height=x for set height of field in mm</comment>
+					<comment>Attribute height=x for set height of field in mm. Available name, barcode, price, sku</comment>
 				</field>
 				<field id="custom_css" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" translate="label">
 					<label>Custom css</label>
