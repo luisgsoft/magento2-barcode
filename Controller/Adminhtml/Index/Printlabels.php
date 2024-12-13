@@ -71,7 +71,7 @@ class Printlabels extends \Magento\Backend\App\Action
         try {
             $unit = "mm";
             $col = $this->getRequest()->getParam('qty');
-			if(is_string($col)) $col=unserialize(urldecode($col));
+            if(is_string($col)) $col=unserialize(urldecode($col));
             $label = $this->scopeConfig->getValue("barcode/general/label_content");
             preg_match("/{name height=(.+)}/", $label, $matches);
             $height_name = 0;
@@ -94,7 +94,7 @@ class Printlabels extends \Magento\Backend\App\Action
             if (!is_array($paper_paddings) || count($paper_paddings) != 4) throw new \Exception("Check paper paddings. Must be this format 1,1,1,1");
             if (!is_array($label_paddings) || count($label_paddings) != 4) throw new \Exception("Check label paddings. Must be this format 1,1,1,1");
 
-            $paper_width = $label_width * $row_labels;
+            $paper_width = ($label_width + $label_paddings[1] + $label_paddings[3]) * $row_labels + $paper_paddings[1] + $paper_paddings[3];
 
 
             $html = "<style type='text/css'>";
@@ -116,7 +116,7 @@ class Printlabels extends \Magento\Backend\App\Action
             $perpage = 0;
             if ($page_rows > 0) {
                 $perpage = $page_rows * $row_labels;
-                $paper_height = $page_rows * $label_height;
+                $paper_height = $page_rows * ($label_height + $label_paddings[0] + $label_paddings[2]) + $paper_paddings[0] + $paper_paddings[2];
             } else {
                 $paper_height = $label_height * count($col) / $row_labels;
             }
@@ -147,7 +147,7 @@ class Printlabels extends \Magento\Backend\App\Action
                 $price .= "<span class='final_price'>" . $this->priceCurrency->convertAndFormat($finalPrice) . "</span>";
                 $price .= "</div>";
 
-                $barcode = "<div class='barcode'><img src='data:image/png;base64," . base64_encode($generator->getBarcode($p->getData($sku), constant(get_class($generator) . '::' . $type_barcode), 3, 50)) . "' width='100%' /></div>";
+                $barcode = "<div class='barcode'><img src='data:image/png;base64," . base64_encode($generator->getBarcode($p->getData($sku), constant(get_class($generator) . '::' . $type_barcode), 3, 50)) . "' width='90%' /></div>";
 
                 for ($i = 0; $i < $qty; $i++) {
                     if ($perpage > 0) {
@@ -163,7 +163,7 @@ class Printlabels extends \Magento\Backend\App\Action
                 }
             }
             $html .= "</div>";
-//echo $html;die();
+
 
             $dompdf = new Dompdf();
             $dompdf->loadHtml($html);
@@ -175,8 +175,8 @@ class Printlabels extends \Magento\Backend\App\Action
             $dompdf->stream(uniqid() . ".pdf", array("Attachment" => false));
             exit();
         }catch(\Exception $e){
-           $msg=$e->getMessage();
-           if(empty($msg)) $msg="El SKU no es un código válido para el tipo de código de barras seleccionado";
+            $msg=$e->getMessage();
+            if(empty($msg)) $msg="El SKU no es un código válido para el tipo de código de barras seleccionado";
             $this->messageManager->addErrorMessage($msg);
             $resultRedirect = $this->resultRedirectFactory->create();
             return $resultRedirect->setPath('catalog/product/index');
@@ -184,14 +184,14 @@ class Printlabels extends \Magento\Backend\App\Action
 
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-       /* $this->messageManager->addSuccess(__('A total of %1 record(s) have been modified.', $collection->getSize()));
+        /* $this->messageManager->addSuccess(__('A total of %1 record(s) have been modified.', $collection->getSize()));
 
-        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        return $resultRedirect->setPath('catalog/product/index');*/
+         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+         return $resultRedirect->setPath('catalog/product/index');*/
     }
     function convertMMtoPX($mm,  $mm_to_px=2.84){
-       // $mm_to_px = 3.78;
-         if(is_array($mm)){
+        // $mm_to_px = 3.78;
+        if(is_array($mm)){
             foreach($mm as $k=>$v){
                 $mm[$k]=$v*$mm_to_px;
             }
